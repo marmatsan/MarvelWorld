@@ -1,3 +1,5 @@
+import org.jetbrains.kotlin.konan.properties.Properties
+
 plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
@@ -5,6 +7,11 @@ plugins {
     kotlin("kapt")
     id("com.google.devtools.ksp")
 }
+
+val localProperties = Properties()
+localProperties.load(rootProject.file("local.properties").inputStream())
+
+val privateKey : String = localProperties.getProperty("privateKey")
 
 android {
     namespace = "com.mango.marvelworld"
@@ -35,6 +42,33 @@ android {
                 name = "API_PUBLIC_KEY",
                 value = "\"984f8d3d20e56ddc9568b3a76e98baa4\""
             )
+            buildConfigField(
+                type = "String",
+                name = "API_PRIVATE_KEY",
+                value = "\"${privateKey}\""
+            )
+            isMinifyEnabled = false
+            proguardFiles(
+                getDefaultProguardFile("proguard-android-optimize.txt"),
+                "proguard-rules.pro"
+            )
+        }
+        debug {
+            buildConfigField(
+                type = "String",
+                name = "API_BASE_URL",
+                value = "\"http://gateway.marvel.com/v1/\""
+            )
+            buildConfigField(
+                type = "String",
+                name = "API_PUBLIC_KEY",
+                value = "\"984f8d3d20e56ddc9568b3a76e98baa4\""
+            )
+            buildConfigField(
+                type = "String",
+                name = "API_PRIVATE_KEY",
+                value = "\"${privateKey}\""
+            )
             isMinifyEnabled = false
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
@@ -43,6 +77,7 @@ android {
         }
     }
     compileOptions {
+        isCoreLibraryDesugaringEnabled = true
         sourceCompatibility = JavaVersion.VERSION_17
         targetCompatibility = JavaVersion.VERSION_17
     }
@@ -50,6 +85,7 @@ android {
         jvmTarget = "17"
     }
     buildFeatures {
+        buildConfig = true
         compose = true
     }
     composeOptions {
