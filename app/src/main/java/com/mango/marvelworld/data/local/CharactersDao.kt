@@ -1,10 +1,12 @@
 package com.mango.marvelworld.data.local
 
 import androidx.paging.PagingSource
+import androidx.room.Dao
 import androidx.room.Query
 import androidx.room.Upsert
 import com.mango.marvelworld.domain.Constants
 
+@Dao
 interface CharactersDao {
     @Upsert
     suspend fun upsertAll(characters: CharacterDataContainerEntity)
