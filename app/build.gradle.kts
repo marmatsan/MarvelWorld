@@ -1,6 +1,9 @@
 plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
+    id("com.google.dagger.hilt.android")
+    kotlin("kapt")
+    id("com.google.devtools.ksp")
 }
 
 android {
@@ -22,6 +25,16 @@ android {
 
     buildTypes {
         release {
+            buildConfigField(
+                type = "String",
+                name = "API_BASE_URL",
+                value = "\"http://gateway.marvel.com/v1/\""
+            )
+            buildConfigField(
+                type = "String",
+                name = "API_PUBLIC_KEY",
+                value = "\"984f8d3d20e56ddc9568b3a76e98baa4\""
+            )
             isMinifyEnabled = false
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
@@ -51,6 +64,10 @@ android {
 
 dependencies {
 
+    val hiltVersion = "2.45"
+    val roomVersion = "2.5.1"
+    val retrofitVersion = "2.9.0"
+
     implementation("androidx.core:core-ktx:1.10.1")
     implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.6.1")
     implementation("androidx.activity:activity-compose:1.7.2")
@@ -60,8 +77,30 @@ dependencies {
     implementation("androidx.compose.ui:ui-tooling-preview")
     implementation("androidx.compose.material3:material3")
 
-    // Splash API
-    implementation("androidx.core:core-splashscreen:1.0.1")
+    implementation("androidx.core:core-splashscreen:1.0.1")                         // Splash Screen
+
+    implementation("com.google.dagger:hilt-android:$hiltVersion")                   // Dagger-Hilt
+    kapt("com.google.dagger:hilt-android-compiler:$hiltVersion")                    // Dagger-Hilt
+    implementation("androidx.hilt:hilt-navigation-compose:1.0.0")                   // Dagger-Hilt
+
+    implementation("androidx.room:room-runtime:$roomVersion")                       // Room
+    ksp("androidx.room:room-compiler:$roomVersion")                                 // Room
+    implementation("androidx.room:room-ktx:$roomVersion")                           // Room
+    implementation("androidx.room:room-paging:$roomVersion")                        // Room
+
+    implementation("io.coil-kt:coil-compose:2.3.0")                                 // Coil
+
+    implementation("com.squareup.retrofit2:retrofit:$retrofitVersion")              // Retrofit
+    implementation("com.squareup.retrofit2:converter-gson:$retrofitVersion")        // Retrofit
+
+    implementation("androidx.navigation:navigation-compose:2.5.3")                  // Navigation
+    implementation("androidx.lifecycle:lifecycle-runtime-compose:2.6.1")            // Lifecycle Compose
+    implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.6.1")          // ViewModel Compose
+
+    implementation("androidx.paging:paging-common-ktx:3.1.1")                       // Paging 3
+    implementation("androidx.paging:paging-compose:1.0.0-alpha20")                  // Paging 3
+
+    coreLibraryDesugaring("com.android.tools:desugar_jdk_libs:2.0.3")               // Core Library Desugaring
 
     testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test.ext:junit:1.1.5")
