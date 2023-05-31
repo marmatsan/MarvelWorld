@@ -11,26 +11,25 @@ import javax.inject.Inject
 class RemoteCharactersListDataSource @Inject constructor(
     private val marvelApi: MarvelApi
 ) : CharactersListDataSource {
-    override suspend fun getCharacters(offset: Int): CharacterDataContainerDto {
+    override suspend fun getCharacters(offset: Long): CharacterDataContainerDto {
 
-        val ts = ZonedDateTime.now().toInstant().toEpochMilli().toString()
-        val hash = computeMD5(
-            ts = ts,
-            privateKey = BuildConfig.API_PRIVATE_KEY,
-            publicKey = BuildConfig.API_PUBLIC_KEY
-        )
-        return marvelApi
+        val ts = ZonedDateTime.now().toInstant().toEpochMilli()
+        val apikey = BuildConfig.API_PUBLIC_KEY
+        val hash = computeMD5(ts = ts)
+
+        val response = marvelApi
             .getCharacters(
                 ts = ts,
-                apiPublicKey = BuildConfig.API_PUBLIC_KEY,
+                apikey = apikey,
                 hash = hash,
-                offset = offset.toString()
+                offset = offset
             )
+       return response.data
     }
 
-    private fun computeMD5(ts: String, privateKey: String, publicKey: String): String {
+    private fun computeMD5(ts: Long): String {
         val md5Digest = MessageDigest.getInstance("MD5")
-        val combinedString = "$ts$privateKey$publicKey"
+        val combinedString = "$ts${BuildConfig.API_PRIVATE_KEY}${BuildConfig.API_PUBLIC_KEY}"
         val bytes = md5Digest.digest(combinedString.toByteArray())
 
         // Convert the byte array to a hexadecimal string representation

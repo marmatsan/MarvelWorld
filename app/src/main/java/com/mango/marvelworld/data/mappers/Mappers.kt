@@ -246,3 +246,219 @@ fun UrlEntity.toUrl(): Url {
         url = url
     )
 }
+
+// Extension functions to map CharacterDataContainerDto to CharacterDataContainer
+
+fun CharacterDataContainerDto.toCharacterDataContainer(): CharacterDataContainer {
+    return CharacterDataContainer(
+        offset = offset,
+        total = total,
+        results = results.map { it.toCharacter() }
+    )
+}
+
+private fun CharacterDto.toCharacter(): Character {
+    return Character(
+        id = id,
+        name = name,
+        description = description,
+        modified = modified,
+        thumbnail = thumbnail.toThumbnail(),
+        resourceUri = resourceUri,
+        comics = comics.toComics(),
+        series = series.toSeries(),
+        stories = stories.toStories(),
+        events = events.toEvents(),
+        urls = urls.map { it.toUrl() }
+    )
+}
+
+private fun ThumbnailDto.toThumbnail(): Thumbnail {
+    return Thumbnail(
+        path = path,
+        extension = extension
+    )
+}
+
+private fun ComicsDto.toComics(): Comics {
+    return Comics(
+        available = available,
+        collectionUri = collectionUri,
+        items = items.map { it.toComicSummary() },
+        returned = returned
+    )
+}
+
+private fun ComicSummaryDto.toComicSummary(): ComicSummary {
+    return ComicSummary(
+        resourceUri = resourceUri,
+        name = name
+    )
+}
+
+private fun SeriesDto.toSeries(): Series {
+    return Series(
+        available = available,
+        collectionUri = collectionUri,
+        items = items.map { it.toSeriesSummary() },
+        returned = returned
+    )
+}
+
+private fun SeriesSummaryDto.toSeriesSummary(): SeriesSummary {
+    return SeriesSummary(
+        resourceUri = resourceUri,
+        name = name
+    )
+}
+
+private fun StoriesDto.toStories(): Stories {
+    return Stories(
+        available = available,
+        collectionUri = collectionUri,
+        items = items.map { it.toStorySummary() },
+        returned = returned
+    )
+}
+
+private fun StorySummaryDto.toStorySummary(): StorySummary {
+    return StorySummary(
+        resourceUri = resourceUri,
+        name = name,
+        type = type
+    )
+}
+
+private fun EventsDto.toEvents(): Events {
+    return Events(
+        available = available,
+        collectionUri = collectionUri,
+        items = items.map { it.toEventSummary() },
+        returned = returned
+    )
+}
+
+private fun EventSummaryDto.toEventSummary(): EventSummary {
+    return EventSummary(
+        resourceUri = resourceUri,
+        name = name
+    )
+}
+
+private fun UrlDto.toUrl(): Url {
+    return Url(
+        type = type,
+        url = url
+    )
+}
+
+// Extension functions to map CharacterDataContainer to CharacterDataContainerEntity
+
+fun CharacterDataContainer.toCharacterDataContainerEntity(): CharacterDataContainerEntity {
+    return CharacterDataContainerEntity(
+        offset = offset,
+        total = total,
+        results = results.map { it.toCharacterEntity() }
+    )
+}
+
+private fun Character.toCharacterEntity(): CharacterEntity {
+    return CharacterEntity(
+        id = id,
+        name = name,
+        description = description,
+        modified = modified,
+        thumbnail = thumbnail.toThumbnailEntity(),
+        resourceUri = resourceUri,
+        comics = comics.toComicsEntity(),
+        series = series.toSeriesEntity(),
+        stories = stories.toStoriesEntity(),
+        events = events.toEventsEntity(),
+        urls = urls.map { it.toUrlEntity() }
+    )
+}
+
+private fun Thumbnail.toThumbnailEntity(): ThumbnailEntity {
+    return ThumbnailEntity(
+        path = path,
+        extension = extension
+    )
+}
+
+private fun Comics.toComicsEntity(): ComicsEntity {
+    return ComicsEntity(
+        available = available,
+        collectionUri = collectionUri,
+        items = items.map { it.toComicSummaryEntity() },
+        returned = returned
+    )
+}
+
+private fun ComicSummary.toComicSummaryEntity(): ComicSummaryEntity {
+    return ComicSummaryEntity(
+        resourceUri = resourceUri,
+        name = name
+    )
+}
+
+private fun Series.toSeriesEntity(): SeriesEntity {
+    return SeriesEntity(
+        available = available,
+        collectionUri = collectionUri,
+        items = items.map { it.toSeriesSummaryEntity() },
+        returned = returned
+    )
+}
+
+private fun SeriesSummary.toSeriesSummaryEntity(): SeriesSummaryEntity {
+    return SeriesSummaryEntity(
+        resourceUri = resourceUri,
+        name = name
+    )
+}
+
+private fun Stories.toStoriesEntity(): StoriesEntity {
+    return StoriesEntity(
+        available = available,
+        collectionUri = collectionUri,
+        items = items.map { it.toStorySummaryEntity() },
+        returned = returned
+    )
+}
+
+private fun StorySummary.toStorySummaryEntity(): StorySummaryEntity {
+    return StorySummaryEntity(
+        resourceUri = resourceUri,
+        name = name,
+        type = type
+    )
+}
+
+private fun Events.toEventsEntity(): EventsEntity {
+    return EventsEntity(
+        available = available,
+        collectionUri = collectionUri,
+        items = items.map { it.toEventSummaryEntity() },
+        returned = returned
+    )
+}
+
+private fun EventSummary.toEventSummaryEntity(): EventSummaryEntity {
+    return EventSummaryEntity(
+        resourceUri = resourceUri,
+        name = name
+    )
+}
+
+private fun Url.toUrlEntity(): UrlEntity {
+    return UrlEntity(
+        type = type,
+        url = url
+    )
+}
+
+
+
+
+
+

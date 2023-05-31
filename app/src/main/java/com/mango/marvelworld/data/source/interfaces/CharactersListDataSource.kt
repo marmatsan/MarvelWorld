@@ -3,5 +3,5 @@ package com.mango.marvelworld.data.source.interfaces
 import com.mango.marvelworld.data.remote.CharacterDataContainerDto
 
 interface CharactersListDataSource {
-    suspend fun getCharacters(offset: Int): CharacterDataContainerDto
+    suspend fun getCharacters(offset: Long): CharacterDataContainerDto
 }

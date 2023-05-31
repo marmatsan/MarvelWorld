@@ -7,6 +7,7 @@ import androidx.paging.PagingConfig
 import androidx.room.Room
 import com.mango.marvelworld.data.local.CharacterDataContainerEntity
 import com.mango.marvelworld.data.local.CharactersDatabase
+import com.mango.marvelworld.data.remote.CharactersRemoteMediator
 import com.mango.marvelworld.domain.Constants
 import com.mango.marvelworld.domain.repository.list.CharactersListDataRepository
 import dagger.Module
@@ -35,16 +36,16 @@ object AppModule {
     @Singleton
     fun provideCharactersPager(
         charactersDb: CharactersDatabase,
-        marvelApi: CharactersListDataRepository
+        charactersDataRepository: CharactersListDataRepository
     ): Pager<Int, CharacterDataContainerEntity> {
         return Pager(
             config = PagingConfig(pageSize = 20),
-            remoteMediator = CharactersRe(
-                moviesByGenreDb = moviesByGenreDb,
-                movieListDataRepository = moviesApi
+            remoteMediator = CharactersRemoteMediator(
+                charactersDb = charactersDb,
+                charactersDataRepository = charactersDataRepository
             ),
             pagingSourceFactory = {
-                moviesByGenreDb.dao.pagingSource()
+                charactersDb.dao.pagingSource()
             }
         )
     }

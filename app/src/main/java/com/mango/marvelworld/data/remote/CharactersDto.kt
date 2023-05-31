@@ -2,6 +2,11 @@ package com.mango.marvelworld.data.remote
 
 import com.google.gson.annotations.SerializedName
 
+data class RootDto(
+    @SerializedName("data")
+    val data: CharacterDataContainerDto,
+)
+
 data class CharacterDataContainerDto(
     @SerializedName("offset")
     val offset: Long,
