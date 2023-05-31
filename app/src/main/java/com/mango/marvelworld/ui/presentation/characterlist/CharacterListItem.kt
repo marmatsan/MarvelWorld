@@ -57,7 +57,10 @@ fun CharacterListItem(
         horizontalArrangement = Arrangement.spacedBy(12.dp)
     ) {
         CharacterImage(
-            portraitUrl = character.thumbnail.path.plus("/portrait_xlarge")
+            portraitUrl = character
+                .thumbnail.path
+                .plus("/portrait_xlarge")
+                .plus(".")
                 .plus(character.thumbnail.extension)
         )
         Column(
