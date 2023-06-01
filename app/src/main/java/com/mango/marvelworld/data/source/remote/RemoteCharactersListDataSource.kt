@@ -31,7 +31,6 @@ class RemoteCharactersListDataSource @Inject constructor(
         val combinedString = "$ts${BuildConfig.API_PRIVATE_KEY}${BuildConfig.API_PUBLIC_KEY}"
         val bytes = md5Digest.digest(combinedString.toByteArray())
 
-        // Convert the byte array to a hexadecimal string representation
         val hexString = StringBuilder()
         for (byte in bytes) {
             val hex = String.format("%02x", byte.toInt() and 0xFF)

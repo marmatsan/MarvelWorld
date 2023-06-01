@@ -26,7 +26,7 @@ class CharactersRemoteMediator(
 
             val loadKey = when (loadType) {
                 LoadType.REFRESH -> 0
-                LoadType.PREPEND -> return MediatorResult.Success(endOfPaginationReached = true) // Not supported in this app version
+                LoadType.PREPEND -> return MediatorResult.Success(endOfPaginationReached = true) // Not supported
                 LoadType.APPEND -> {
                     val lastItem = state.lastItemOrNull()
                     if (lastItem == null) {

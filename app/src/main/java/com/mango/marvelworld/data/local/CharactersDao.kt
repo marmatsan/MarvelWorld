@@ -12,6 +12,9 @@ interface CharactersDao {
     suspend fun upsertAll(characters: CharacterDataContainerEntity)
 
     @Query("SELECT * FROM ${Constants.Room.DATABASE_NAME}")
+    fun getAllCharacterDataContainers(): List<CharacterDataContainerEntity>
+
+    @Query("SELECT * FROM ${Constants.Room.DATABASE_NAME}")
     fun pagingSource() : PagingSource<Int, CharacterDataContainerEntity>
 
     @Query("DELETE FROM ${Constants.Room.DATABASE_NAME}")

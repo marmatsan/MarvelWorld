@@ -1,4 +1,8 @@
 <resources>
     <string name="app_name">MarvelWorld</string>
     <string name="cd_character_portrait">Character portrait</string>
+    <string name="cd_search_icon">Search Icon</string>
+    <string name="cd_close_icon">Close Icon</string>
+    <string name="l_busca_un_personaje_por_su_nombre">Busca un personaje por su nombre</string>
+    <string name="l_busca_un_personaje">Busca un personaje</string>
 </resources>

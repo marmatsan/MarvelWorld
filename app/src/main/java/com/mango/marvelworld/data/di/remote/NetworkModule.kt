@@ -1,7 +1,5 @@
 package com.mango.marvelworld.data.di.remote
 
-import androidx.paging.ExperimentalPagingApi
-import com.google.gson.GsonBuilder
 import com.mango.marvelworld.BuildConfig
 import com.mango.marvelworld.data.remote.MarvelApi
 import com.mango.marvelworld.data.repository.list.CharactersListDataRepositoryImpl
@@ -12,11 +10,8 @@ import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
-import okhttp3.OkHttpClient
-import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
-import java.util.concurrent.TimeUnit
 import javax.inject.Singleton
 
 @Module
