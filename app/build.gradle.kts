@@ -11,6 +11,7 @@ plugins {
 val localProperties = Properties()
 localProperties.load(rootProject.file("local.properties").inputStream())
 
+val publicKey : String = localProperties.getProperty("publicKey")
 val privateKey : String = localProperties.getProperty("privateKey")
 
 android {
@@ -40,7 +41,7 @@ android {
             buildConfigField(
                 type = "String",
                 name = "API_PUBLIC_KEY",
-                value = "\"984f8d3d20e56ddc9568b3a76e98baa4\""
+                value = "\"${publicKey}\""
             )
             buildConfigField(
                 type = "String",
@@ -62,7 +63,7 @@ android {
             buildConfigField(
                 type = "String",
                 name = "API_PUBLIC_KEY",
-                value = "\"984f8d3d20e56ddc9568b3a76e98baa4\""
+                value = "\"${publicKey}\""
             )
             buildConfigField(
                 type = "String",

@@ -160,8 +160,8 @@ fun createMockCharacter(): Character {
 
     return Character(
         id = 1,
-        name = "Iron Man",
-        description = "Genius, billionaire, playboy, philanthropist",
+        name = "Character Name",
+        description = "Character Description",
         modified = "2023-05-24",
         thumbnail = thumbnail,
         resourceUri = "https://example.com/character/1",

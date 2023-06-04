@@ -84,14 +84,11 @@ fun CharactersContainer(
     }
 
     Box(
-        modifier = modifier
+        modifier = modifier,
+        contentAlignment = Alignment.Center
     ) {
         if (characterDataContainer.loadState.refresh is LoadState.Loading) {
-            CircularProgressIndicator(
-                modifier = Modifier
-                    .size(50.dp)
-                    .align(Alignment.Center)
-            )
+            LoadingIcon()
         } else {
             LazyColumn(
                 modifier = Modifier.fillMaxSize(),
@@ -111,10 +108,17 @@ fun CharactersContainer(
                 }
                 item {
                     if (characterDataContainer.loadState.append is LoadState.Loading) {
-                        CircularProgressIndicator()
+                        LoadingIcon()
                     }
                 }
             }
         }
     }
+}
+
+@Composable
+fun LoadingIcon() {
+    CircularProgressIndicator(
+        modifier = Modifier.size(50.dp)
+    )
 }
