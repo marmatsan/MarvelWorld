@@ -1,3 +1,5 @@
+import org.jetbrains.kotlin.konan.properties.Properties
+
 plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
@@ -5,6 +7,12 @@ plugins {
     kotlin("kapt")
     id("com.google.devtools.ksp")
 }
+
+val localProperties = Properties()
+localProperties.load(rootProject.file("local.properties").inputStream())
+
+val publicKey : String = localProperties.getProperty("publicKey")
+val privateKey : String = localProperties.getProperty("privateKey")
 
 android {
     namespace = "com.mango.marvelworld"
@@ -33,7 +41,34 @@ android {
             buildConfigField(
                 type = "String",
                 name = "API_PUBLIC_KEY",
-                value = "\"984f8d3d20e56ddc9568b3a76e98baa4\""
+                value = "\"${publicKey}\""
+            )
+            buildConfigField(
+                type = "String",
+                name = "API_PRIVATE_KEY",
+                value = "\"${privateKey}\""
+            )
+            isMinifyEnabled = false
+            proguardFiles(
+                getDefaultProguardFile("proguard-android-optimize.txt"),
+                "proguard-rules.pro"
+            )
+        }
+        debug {
+            buildConfigField(
+                type = "String",
+                name = "API_BASE_URL",
+                value = "\"https://gateway.marvel.com/v1/\""
+            )
+            buildConfigField(
+                type = "String",
+                name = "API_PUBLIC_KEY",
+                value = "\"${publicKey}\""
+            )
+            buildConfigField(
+                type = "String",
+                name = "API_PRIVATE_KEY",
+                value = "\"${privateKey}\""
             )
             isMinifyEnabled = false
             proguardFiles(
@@ -43,6 +78,7 @@ android {
         }
     }
     compileOptions {
+        isCoreLibraryDesugaringEnabled = true
         sourceCompatibility = JavaVersion.VERSION_17
         targetCompatibility = JavaVersion.VERSION_17
     }
@@ -50,6 +86,7 @@ android {
         jvmTarget = "17"
     }
     buildFeatures {
+        buildConfig = true
         compose = true
     }
     composeOptions {
@@ -75,7 +112,7 @@ dependencies {
     implementation("androidx.compose.ui:ui")
     implementation("androidx.compose.ui:ui-graphics")
     implementation("androidx.compose.ui:ui-tooling-preview")
-    implementation("androidx.compose.material3:material3")
+    implementation("androidx.compose.material3:material3:1.1.0")
 
     implementation("androidx.core:core-splashscreen:1.0.1")                         // Splash Screen
 
@@ -100,7 +137,9 @@ dependencies {
     implementation("androidx.paging:paging-common-ktx:3.1.1")                       // Paging 3
     implementation("androidx.paging:paging-compose:1.0.0-alpha20")                  // Paging 3
 
-    coreLibraryDesugaring("com.android.tools:desugar_jdk_libs:2.0.3")               // Core Library Desugaring
+    implementation("androidx.compose.material:material-icons-extended")             // Extended Material Icons
+
+    coreLibraryDesugaring("com.android.tools:desugar_jdk_libs:2.0.3")               // Desugaring
 
     testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test.ext:junit:1.1.5")
