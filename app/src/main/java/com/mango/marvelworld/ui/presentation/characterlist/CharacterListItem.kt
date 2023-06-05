@@ -73,7 +73,7 @@ fun CharacterListItem(
                 modifier = Modifier.padding(2.dp)
             )
             Text(
-                text = character.description,
+                text = "Aparece en ${character.comics.available} comics",
                 color = Color.Gray
             )
         }

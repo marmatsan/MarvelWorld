@@ -137,7 +137,9 @@ dependencies {
     implementation("androidx.paging:paging-common-ktx:3.1.1")                       // Paging 3
     implementation("androidx.paging:paging-compose:1.0.0-alpha20")                  // Paging 3
 
-    coreLibraryDesugaring("com.android.tools:desugar_jdk_libs:2.0.3")               // Core Library Desugaring
+    implementation("androidx.compose.material:material-icons-extended")             // Extended Material Icons
+
+    coreLibraryDesugaring("com.android.tools:desugar_jdk_libs:2.0.3")               // Desugaring
 
     testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test.ext:junit:1.1.5")
