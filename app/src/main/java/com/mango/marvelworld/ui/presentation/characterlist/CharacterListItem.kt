@@ -1,5 +1,6 @@
 package com.mango.marvelworld.ui.presentation.characterlist
 
+import android.content.Intent
 import android.content.res.Configuration
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -33,6 +34,7 @@ import com.mango.marvelworld.domain.models.Stories
 import com.mango.marvelworld.domain.models.StorySummary
 import com.mango.marvelworld.domain.models.Thumbnail
 import com.mango.marvelworld.domain.models.Url
+import com.mango.marvelworld.ui.activities.DetailActivity
 
 @Composable
 fun CharacterListItem(
@@ -46,12 +48,10 @@ fun CharacterListItem(
                 top = 14.dp,
                 bottom = 14.dp
             )
-            .clickable { // TODO
-                /*
+            .clickable {
                 val intent = Intent(localContext, DetailActivity::class.java)
-                    .putExtra("movieId", movie.id)
+                    .putExtra("characterId", character.id)
                 localContext.startActivity(intent)
-                 */
             },
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.spacedBy(12.dp)

@@ -6,4 +6,8 @@
     <string name="l_busca_un_personaje_por_su_nombre">Busca un personaje por su nombre</string>
     <string name="l_busca_un_personaje">Busca un personaje</string>
     <string name="cd_history_icon">History Icon</string>
+    <string name="cd_character_landscape">Character Landscape</string>
+    <string name="l_descripci_n">Descripción</string>
+    <string name="l_character_description">Character description</string>
+    <string name="l_cargando">Cargando</string>
 </resources>

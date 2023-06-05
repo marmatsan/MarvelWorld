@@ -15,4 +15,10 @@ class CharactersListDataRepositoryImpl @Inject constructor(
         return charactersDataContainerDto.toCharacterDataContainer()
     }
 
+    override suspend fun getCharacter(characterId: Long): CharacterDataContainer {
+        val charactersDataContainerDto =
+            charactersListRepository.getCharacter(characterId = characterId)
+        return charactersDataContainerDto.toCharacterDataContainer()
+    }
+
 }

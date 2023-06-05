@@ -26,6 +26,20 @@ class RemoteCharactersListDataSource @Inject constructor(
             ).data
     }
 
+    override suspend fun getCharacter(characterId: Long): CharacterDataContainerDto {
+        val ts = ZonedDateTime.now().toInstant().toEpochMilli()
+        val apikey = BuildConfig.API_PUBLIC_KEY
+        val hash = computeMD5Hash(ts = ts)
+
+        return marvelApi
+            .getCharacter(
+                characterId = characterId,
+                ts = ts,
+                apikey = apikey,
+                hash = hash
+            ).data
+    }
+
     private fun computeMD5Hash(ts: Long): String {
         val md5Digest = MessageDigest.getInstance("MD5")
         val combinedString = "$ts${BuildConfig.API_PRIVATE_KEY}${BuildConfig.API_PUBLIC_KEY}"

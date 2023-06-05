@@ -4,4 +4,5 @@ import com.mango.marvelworld.data.remote.CharacterDataContainerDto
 
 interface CharactersListDataSource {
     suspend fun getCharacters(offset: Long): CharacterDataContainerDto
+    suspend fun getCharacter(characterId: Long): CharacterDataContainerDto
 }
