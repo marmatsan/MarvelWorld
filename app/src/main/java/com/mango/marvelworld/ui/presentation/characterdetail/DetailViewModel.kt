@@ -17,7 +17,7 @@ class DetailViewModel @Inject constructor(
     private val charactersListDataRepository: CharactersListDataRepository
 ) : ViewModel() {
 
-    // MainScreen: Movies Container
+    // Detail Screen: Character details
     private val _requestCharacterDetailsState: MutableStateFlow<RequestState<*>> by lazy {
         MutableStateFlow(RequestState.Idle)
     }
@@ -26,6 +26,23 @@ class DetailViewModel @Inject constructor(
         get() = _requestCharacterDetailsState
 
     fun fetchCharacterById(characterId: Long) {
+        viewModelScope.launch(Dispatchers.IO) {
+            _requestCharacterDetailsState.update { RequestState.Loading }
+            val characterDetail =
+                charactersListDataRepository.getCharacter(characterId = characterId)
+            _requestCharacterDetailsState.update { RequestState.Success(characterDetail) }
+        }
+    }
+
+    // Detail Screen: Character comics
+    private val _requestCharacterComicsState: MutableStateFlow<RequestState<*>> by lazy {
+        MutableStateFlow(RequestState.Idle)
+    }
+
+    val requestCharacterComicsState: StateFlow<RequestState<*>>
+        get() = _requestCharacterComicsState
+
+    fun fetchCharacterComics(characterId: Long) {
         viewModelScope.launch(Dispatchers.IO) {
             _requestCharacterDetailsState.update { RequestState.Loading }
             val characterDetail =

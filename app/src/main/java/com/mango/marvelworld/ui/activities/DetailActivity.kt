@@ -60,6 +60,11 @@ class DetailActivity : ComponentActivity() {
                             // Character Description
                             binding.txtCharacterDescription.text =
                                 character.description.ifEmpty { "Descripción no disponible" }
+
+                            // Comics list (Compose view)
+                            binding.viewCompose.setContent {
+
+                            }
                         }
                     }
                 }

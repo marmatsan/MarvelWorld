@@ -1,6 +1,7 @@
 package com.mango.marvelworld.data.remote
 
-import retrofit2.Response
+import com.mango.marvelworld.data.remote.characterdetail.ComicDataWrapperDto
+import com.mango.marvelworld.data.remote.characterlist.RootDto
 import retrofit2.http.GET
 import retrofit2.http.Path
 import retrofit2.http.Query
@@ -21,4 +22,12 @@ interface MarvelApi {
         @Query("apikey") apikey: String,
         @Query("hash") hash: String
     ): RootDto
+
+    @GET("public/characters/{characterId}/comics")
+    suspend fun getCharacterComics(
+        @Path("characterId") characterId: Long,
+        @Query("ts") ts: Long,
+        @Query("apikey") apikey: String,
+        @Query("hash") hash: String
+    ): ComicDataWrapperDto
 }

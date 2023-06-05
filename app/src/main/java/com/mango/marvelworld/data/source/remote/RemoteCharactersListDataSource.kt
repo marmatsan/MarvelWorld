@@ -1,8 +1,9 @@
 package com.mango.marvelworld.data.source.remote
 
 import com.mango.marvelworld.BuildConfig
-import com.mango.marvelworld.data.remote.CharacterDataContainerDto
+import com.mango.marvelworld.data.remote.characterlist.CharacterDataContainerDto
 import com.mango.marvelworld.data.remote.MarvelApi
+import com.mango.marvelworld.data.remote.characterdetail.ComicDataContainerDto
 import com.mango.marvelworld.data.source.interfaces.CharactersListDataSource
 import java.security.MessageDigest
 import java.time.ZonedDateTime
@@ -39,6 +40,11 @@ class RemoteCharactersListDataSource @Inject constructor(
                 hash = hash
             ).data
     }
+
+    override suspend fun getCharacterComics(characterId: Long): ComicDataContainerDto {
+        
+    }
+
 
     private fun computeMD5Hash(ts: Long): String {
         val md5Digest = MessageDigest.getInstance("MD5")
