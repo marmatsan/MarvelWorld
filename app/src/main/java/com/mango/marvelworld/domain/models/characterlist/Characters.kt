@@ -1,4 +1,4 @@
-package com.mango.marvelworld.domain.models
+package com.mango.marvelworld.domain.models.characterlist
 
 data class CharacterDataContainer(
     val offset: Long,

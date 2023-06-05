@@ -1,4 +1,4 @@
-package com.mango.marvelworld.data.mappers
+package com.mango.marvelworld.data.mappers.characterlist
 
 import com.mango.marvelworld.data.local.CharacterDataContainerEntity
 import com.mango.marvelworld.data.local.CharacterEntity
@@ -24,18 +24,18 @@ import com.mango.marvelworld.data.remote.characterlist.StoriesDto
 import com.mango.marvelworld.data.remote.characterlist.StorySummaryDto
 import com.mango.marvelworld.data.remote.characterlist.ThumbnailDto
 import com.mango.marvelworld.data.remote.characterlist.UrlDto
-import com.mango.marvelworld.domain.models.Character
-import com.mango.marvelworld.domain.models.CharacterDataContainer
-import com.mango.marvelworld.domain.models.ComicSummary
-import com.mango.marvelworld.domain.models.Comics
-import com.mango.marvelworld.domain.models.EventSummary
-import com.mango.marvelworld.domain.models.Events
-import com.mango.marvelworld.domain.models.Series
-import com.mango.marvelworld.domain.models.SeriesSummary
-import com.mango.marvelworld.domain.models.Stories
-import com.mango.marvelworld.domain.models.StorySummary
-import com.mango.marvelworld.domain.models.Thumbnail
-import com.mango.marvelworld.domain.models.Url
+import com.mango.marvelworld.domain.models.characterlist.Character
+import com.mango.marvelworld.domain.models.characterlist.CharacterDataContainer
+import com.mango.marvelworld.domain.models.characterlist.ComicSummary
+import com.mango.marvelworld.domain.models.characterlist.Comics
+import com.mango.marvelworld.domain.models.characterlist.EventSummary
+import com.mango.marvelworld.domain.models.characterlist.Events
+import com.mango.marvelworld.domain.models.characterlist.Series
+import com.mango.marvelworld.domain.models.characterlist.SeriesSummary
+import com.mango.marvelworld.domain.models.characterlist.Stories
+import com.mango.marvelworld.domain.models.characterlist.StorySummary
+import com.mango.marvelworld.domain.models.characterlist.Thumbnail
+import com.mango.marvelworld.domain.models.characterlist.Url
 
 // Extension functions to map CharacterDataContainerDto to CharacterDataContainerEntity
 
@@ -456,8 +456,6 @@ private fun Url.toUrlEntity(): UrlEntity {
         url = url
     )
 }
-
-
 
 
 

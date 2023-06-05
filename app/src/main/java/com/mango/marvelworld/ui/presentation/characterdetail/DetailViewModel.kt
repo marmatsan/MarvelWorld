@@ -44,10 +44,10 @@ class DetailViewModel @Inject constructor(
 
     fun fetchCharacterComics(characterId: Long) {
         viewModelScope.launch(Dispatchers.IO) {
-            _requestCharacterDetailsState.update { RequestState.Loading }
-            val characterDetail =
-                charactersListDataRepository.getCharacter(characterId = characterId)
-            _requestCharacterDetailsState.update { RequestState.Success(characterDetail) }
+            _requestCharacterComicsState.update { RequestState.Loading }
+            val characterComics =
+                charactersListDataRepository.getCharacterComics(characterId = characterId)
+            _requestCharacterComicsState.update { RequestState.Success(characterComics) }
         }
     }
 
