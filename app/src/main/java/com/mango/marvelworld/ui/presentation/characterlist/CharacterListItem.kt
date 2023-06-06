@@ -38,9 +38,9 @@ import com.mango.marvelworld.ui.activities.DetailActivity
 
 @Composable
 fun CharacterListItem(
-    character: Character
+    character: Character,
+    onCharacterCachedItemClick: (Character) -> Unit
 ) {
-    val localContext = LocalContext.current
     Row(
         modifier = Modifier
             .fillMaxWidth()
@@ -49,9 +49,7 @@ fun CharacterListItem(
                 bottom = 14.dp
             )
             .clickable {
-                val intent = Intent(localContext, DetailActivity::class.java)
-                    .putExtra("characterId", character.id)
-                localContext.startActivity(intent)
+                onCharacterCachedItemClick(character)
             },
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.spacedBy(12.dp)
@@ -101,7 +99,8 @@ fun CharacterImage(
 @Preview(name = "Dark Theme", showBackground = true, uiMode = Configuration.UI_MODE_NIGHT_YES)
 fun CharacterListItemPreview() {
     CharacterListItem(
-        character = createMockCharacter()
+        character = createMockCharacter(),
+        onCharacterCachedItemClick = {}
     )
 }
 

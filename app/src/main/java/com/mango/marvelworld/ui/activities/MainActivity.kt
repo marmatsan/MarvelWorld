@@ -51,11 +51,8 @@ class MainActivity : ComponentActivity() {
         }
 
         setContent {
-            val listViewModel = hiltViewModel<ListViewModel>()
             MarvelWorldTheme {
-                ListScreen(
-                    listViewModel = listViewModel
-                )
+                ListScreen()
             }
         }
     }
