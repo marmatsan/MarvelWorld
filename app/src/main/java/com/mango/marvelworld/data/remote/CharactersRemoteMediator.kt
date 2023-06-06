@@ -7,7 +7,7 @@ import androidx.paging.RemoteMediator
 import androidx.room.withTransaction
 import com.mango.marvelworld.data.local.CharacterDataContainerEntity
 import com.mango.marvelworld.data.local.CharactersDatabase
-import com.mango.marvelworld.data.mappers.toCharacterDataContainerEntity
+import com.mango.marvelworld.data.mappers.characterlist.toCharacterDataContainerEntity
 import com.mango.marvelworld.domain.repository.list.CharactersListDataRepository
 import retrofit2.HttpException
 import java.io.IOException

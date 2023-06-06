@@ -92,6 +92,9 @@ android {
     composeOptions {
         kotlinCompilerExtensionVersion = "1.4.3"
     }
+    dataBinding {
+        android.buildFeatures.dataBinding = true
+    }
     packaging {
         resources {
             excludes += "/META-INF/{AL2.0,LGPL2.1}"
@@ -100,6 +103,7 @@ android {
 }
 
 dependencies {
+
 
     val hiltVersion = "2.45"
     val roomVersion = "2.5.1"
@@ -112,7 +116,11 @@ dependencies {
     implementation("androidx.compose.ui:ui")
     implementation("androidx.compose.ui:ui-graphics")
     implementation("androidx.compose.ui:ui-tooling-preview")
+    implementation("androidx.constraintlayout:constraintlayout:2.1.4")
     implementation("androidx.compose.material3:material3:1.1.0")
+    implementation("androidx.appcompat:appcompat:1.6.1")
+    implementation("androidx.constraintlayout:constraintlayout:2.1.4")
+    implementation("com.google.android.material:material:1.9.0")
 
     implementation("androidx.core:core-splashscreen:1.0.1")                         // Splash Screen
 

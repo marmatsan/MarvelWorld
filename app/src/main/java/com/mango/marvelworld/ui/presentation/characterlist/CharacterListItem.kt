@@ -1,5 +1,6 @@
 package com.mango.marvelworld.ui.presentation.characterlist
 
+import android.content.Intent
 import android.content.res.Configuration
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -22,17 +23,18 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 import com.mango.marvelworld.R
-import com.mango.marvelworld.domain.models.Character
-import com.mango.marvelworld.domain.models.ComicSummary
-import com.mango.marvelworld.domain.models.Comics
-import com.mango.marvelworld.domain.models.EventSummary
-import com.mango.marvelworld.domain.models.Events
-import com.mango.marvelworld.domain.models.Series
-import com.mango.marvelworld.domain.models.SeriesSummary
-import com.mango.marvelworld.domain.models.Stories
-import com.mango.marvelworld.domain.models.StorySummary
-import com.mango.marvelworld.domain.models.Thumbnail
-import com.mango.marvelworld.domain.models.Url
+import com.mango.marvelworld.domain.models.characterlist.Character
+import com.mango.marvelworld.domain.models.characterlist.ComicSummary
+import com.mango.marvelworld.domain.models.characterlist.Comics
+import com.mango.marvelworld.domain.models.characterlist.EventSummary
+import com.mango.marvelworld.domain.models.characterlist.Events
+import com.mango.marvelworld.domain.models.characterlist.Series
+import com.mango.marvelworld.domain.models.characterlist.SeriesSummary
+import com.mango.marvelworld.domain.models.characterlist.Stories
+import com.mango.marvelworld.domain.models.characterlist.StorySummary
+import com.mango.marvelworld.domain.models.characterlist.Thumbnail
+import com.mango.marvelworld.domain.models.characterlist.Url
+import com.mango.marvelworld.ui.activities.DetailActivity
 
 @Composable
 fun CharacterListItem(
@@ -46,12 +48,10 @@ fun CharacterListItem(
                 top = 14.dp,
                 bottom = 14.dp
             )
-            .clickable { // TODO
-                /*
+            .clickable {
                 val intent = Intent(localContext, DetailActivity::class.java)
-                    .putExtra("movieId", movie.id)
+                    .putExtra("characterId", character.id)
                 localContext.startActivity(intent)
-                 */
             },
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.spacedBy(12.dp)

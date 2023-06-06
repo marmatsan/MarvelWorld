@@ -27,9 +27,9 @@ import androidx.paging.compose.collectAsLazyPagingItems
 import androidx.paging.compose.itemContentType
 import androidx.paging.compose.itemKey
 import com.mango.marvelworld.data.local.CharacterDataContainerEntity
-import com.mango.marvelworld.data.mappers.toCharacterDataContainer
+import com.mango.marvelworld.data.mappers.characterlist.toCharacterDataContainer
 import com.mango.marvelworld.domain.Constants.Empty
-import com.mango.marvelworld.domain.models.CharacterDataContainer
+import com.mango.marvelworld.domain.models.characterlist.CharacterDataContainer
 import com.mango.marvelworld.ui.presentation.characterlist.components.SearchAppBar
 
 @Composable

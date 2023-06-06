@@ -1,4 +1,4 @@
-package com.mango.marvelworld.data.mappers
+package com.mango.marvelworld.data.mappers.characterlist
 
 import com.mango.marvelworld.data.local.CharacterDataContainerEntity
 import com.mango.marvelworld.data.local.CharacterEntity
@@ -12,30 +12,30 @@ import com.mango.marvelworld.data.local.StoriesEntity
 import com.mango.marvelworld.data.local.StorySummaryEntity
 import com.mango.marvelworld.data.local.ThumbnailEntity
 import com.mango.marvelworld.data.local.UrlEntity
-import com.mango.marvelworld.data.remote.CharacterDataContainerDto
-import com.mango.marvelworld.data.remote.CharacterDto
-import com.mango.marvelworld.data.remote.ComicSummaryDto
-import com.mango.marvelworld.data.remote.ComicsDto
-import com.mango.marvelworld.data.remote.EventSummaryDto
-import com.mango.marvelworld.data.remote.EventsDto
-import com.mango.marvelworld.data.remote.SeriesDto
-import com.mango.marvelworld.data.remote.SeriesSummaryDto
-import com.mango.marvelworld.data.remote.StoriesDto
-import com.mango.marvelworld.data.remote.StorySummaryDto
-import com.mango.marvelworld.data.remote.ThumbnailDto
-import com.mango.marvelworld.data.remote.UrlDto
-import com.mango.marvelworld.domain.models.Character
-import com.mango.marvelworld.domain.models.CharacterDataContainer
-import com.mango.marvelworld.domain.models.ComicSummary
-import com.mango.marvelworld.domain.models.Comics
-import com.mango.marvelworld.domain.models.EventSummary
-import com.mango.marvelworld.domain.models.Events
-import com.mango.marvelworld.domain.models.Series
-import com.mango.marvelworld.domain.models.SeriesSummary
-import com.mango.marvelworld.domain.models.Stories
-import com.mango.marvelworld.domain.models.StorySummary
-import com.mango.marvelworld.domain.models.Thumbnail
-import com.mango.marvelworld.domain.models.Url
+import com.mango.marvelworld.data.remote.characterlist.CharacterDataContainerDto
+import com.mango.marvelworld.data.remote.characterlist.CharacterDto
+import com.mango.marvelworld.data.remote.characterlist.ComicSummaryDto
+import com.mango.marvelworld.data.remote.characterlist.ComicsDto
+import com.mango.marvelworld.data.remote.characterlist.EventSummaryDto
+import com.mango.marvelworld.data.remote.characterlist.EventsDto
+import com.mango.marvelworld.data.remote.characterlist.SeriesDto
+import com.mango.marvelworld.data.remote.characterlist.SeriesSummaryDto
+import com.mango.marvelworld.data.remote.characterlist.StoriesDto
+import com.mango.marvelworld.data.remote.characterlist.StorySummaryDto
+import com.mango.marvelworld.data.remote.characterlist.ThumbnailDto
+import com.mango.marvelworld.data.remote.characterlist.UrlDto
+import com.mango.marvelworld.domain.models.characterlist.Character
+import com.mango.marvelworld.domain.models.characterlist.CharacterDataContainer
+import com.mango.marvelworld.domain.models.characterlist.ComicSummary
+import com.mango.marvelworld.domain.models.characterlist.Comics
+import com.mango.marvelworld.domain.models.characterlist.EventSummary
+import com.mango.marvelworld.domain.models.characterlist.Events
+import com.mango.marvelworld.domain.models.characterlist.Series
+import com.mango.marvelworld.domain.models.characterlist.SeriesSummary
+import com.mango.marvelworld.domain.models.characterlist.Stories
+import com.mango.marvelworld.domain.models.characterlist.StorySummary
+import com.mango.marvelworld.domain.models.characterlist.Thumbnail
+import com.mango.marvelworld.domain.models.characterlist.Url
 
 // Extension functions to map CharacterDataContainerDto to CharacterDataContainerEntity
 
@@ -456,8 +456,6 @@ private fun Url.toUrlEntity(): UrlEntity {
         url = url
     )
 }
-
-
 
 
 

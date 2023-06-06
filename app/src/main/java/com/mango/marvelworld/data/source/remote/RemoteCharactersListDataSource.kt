@@ -1,8 +1,9 @@
 package com.mango.marvelworld.data.source.remote
 
 import com.mango.marvelworld.BuildConfig
-import com.mango.marvelworld.data.remote.CharacterDataContainerDto
+import com.mango.marvelworld.data.remote.characterlist.CharacterDataContainerDto
 import com.mango.marvelworld.data.remote.MarvelApi
+import com.mango.marvelworld.data.remote.characterdetail.ComicDataContainerDto
 import com.mango.marvelworld.data.source.interfaces.CharactersListDataSource
 import java.security.MessageDigest
 import java.time.ZonedDateTime
@@ -23,6 +24,34 @@ class RemoteCharactersListDataSource @Inject constructor(
                 apikey = apikey,
                 hash = hash,
                 offset = offset
+            ).data
+    }
+
+    override suspend fun getCharacter(characterId: Long): CharacterDataContainerDto {
+        val ts = ZonedDateTime.now().toInstant().toEpochMilli()
+        val apikey = BuildConfig.API_PUBLIC_KEY
+        val hash = computeMD5Hash(ts = ts)
+
+        return marvelApi
+            .getCharacter(
+                characterId = characterId,
+                ts = ts,
+                apikey = apikey,
+                hash = hash
+            ).data
+    }
+
+    override suspend fun getCharacterComics(characterId: Long): ComicDataContainerDto {
+        val ts = ZonedDateTime.now().toInstant().toEpochMilli()
+        val apikey = BuildConfig.API_PUBLIC_KEY
+        val hash = computeMD5Hash(ts = ts)
+
+        return marvelApi
+            .getCharacterComics(
+                characterId = characterId,
+                ts = ts,
+                apikey = apikey,
+                hash = hash
             ).data
     }
 

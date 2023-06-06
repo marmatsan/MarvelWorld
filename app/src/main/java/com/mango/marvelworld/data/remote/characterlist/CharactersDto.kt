@@ -1,4 +1,4 @@
-package com.mango.marvelworld.data.remote
+package com.mango.marvelworld.data.remote.characterlist
 
 import com.google.gson.annotations.SerializedName
 

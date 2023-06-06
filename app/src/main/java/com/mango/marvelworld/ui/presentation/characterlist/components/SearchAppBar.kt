@@ -29,19 +29,19 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.zIndex
 import com.mango.marvelworld.R
 import com.mango.marvelworld.data.local.CharacterDataContainerEntity
-import com.mango.marvelworld.data.mappers.toCharacterDataContainer
+import com.mango.marvelworld.data.mappers.characterlist.toCharacterDataContainer
 import com.mango.marvelworld.domain.Constants.Empty
-import com.mango.marvelworld.domain.models.Character
-import com.mango.marvelworld.domain.models.ComicSummary
-import com.mango.marvelworld.domain.models.Comics
-import com.mango.marvelworld.domain.models.EventSummary
-import com.mango.marvelworld.domain.models.Events
-import com.mango.marvelworld.domain.models.Series
-import com.mango.marvelworld.domain.models.SeriesSummary
-import com.mango.marvelworld.domain.models.Stories
-import com.mango.marvelworld.domain.models.StorySummary
-import com.mango.marvelworld.domain.models.Thumbnail
-import com.mango.marvelworld.domain.models.Url
+import com.mango.marvelworld.domain.models.characterlist.Character
+import com.mango.marvelworld.domain.models.characterlist.ComicSummary
+import com.mango.marvelworld.domain.models.characterlist.Comics
+import com.mango.marvelworld.domain.models.characterlist.EventSummary
+import com.mango.marvelworld.domain.models.characterlist.Events
+import com.mango.marvelworld.domain.models.characterlist.Series
+import com.mango.marvelworld.domain.models.characterlist.SeriesSummary
+import com.mango.marvelworld.domain.models.characterlist.Stories
+import com.mango.marvelworld.domain.models.characterlist.StorySummary
+import com.mango.marvelworld.domain.models.characterlist.Thumbnail
+import com.mango.marvelworld.domain.models.characterlist.Url
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
