@@ -1,19 +1,17 @@
 package com.mango.marvelworld.ui.activities
 
-import android.content.Intent
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.viewModels
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.CircularProgressIndicator
@@ -23,7 +21,6 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
@@ -37,23 +34,13 @@ import coil.load
 import com.mango.marvelworld.R
 import com.mango.marvelworld.databinding.ActivityDetailBinding
 import com.mango.marvelworld.domain.models.characterdetail.CharacterList
-import com.mango.marvelworld.domain.models.characterdetail.CharacterSummary
 import com.mango.marvelworld.domain.models.characterdetail.Comic
 import com.mango.marvelworld.domain.models.characterdetail.ComicDataContainer
-import com.mango.marvelworld.domain.models.characterdetail.ComicDate
-import com.mango.marvelworld.domain.models.characterdetail.ComicPrice
-import com.mango.marvelworld.domain.models.characterdetail.ComicSummary
 import com.mango.marvelworld.domain.models.characterdetail.CreatorList
-import com.mango.marvelworld.domain.models.characterdetail.CreatorSummary
 import com.mango.marvelworld.domain.models.characterdetail.EventList
-import com.mango.marvelworld.domain.models.characterdetail.EventSummary
 import com.mango.marvelworld.domain.models.characterdetail.Image
 import com.mango.marvelworld.domain.models.characterdetail.SeriesSummary
 import com.mango.marvelworld.domain.models.characterdetail.StoryList
-import com.mango.marvelworld.domain.models.characterdetail.StorySummary
-import com.mango.marvelworld.domain.models.characterdetail.TextObject
-import com.mango.marvelworld.domain.models.characterdetail.Url
-import com.mango.marvelworld.domain.models.characterlist.Character
 import com.mango.marvelworld.domain.models.characterlist.CharacterDataContainer
 import com.mango.marvelworld.ui.presentation.characterdetail.DetailViewModel
 import com.mango.marvelworld.ui.util.RequestState
@@ -62,6 +49,8 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import java.time.OffsetDateTime
+import java.time.format.DateTimeFormatter
 
 @AndroidEntryPoint
 class DetailActivity : ComponentActivity() {
@@ -130,7 +119,7 @@ class DetailActivity : ComponentActivity() {
     ) {
         if (requestCharacterComicsState is RequestState.Loading) {
             Box(
-                modifier = Modifier.fillMaxWidth(),
+                modifier = Modifier.fillMaxSize(),
                 contentAlignment = Alignment.Center
             ) {
                 CircularProgressIndicator(
@@ -139,13 +128,26 @@ class DetailActivity : ComponentActivity() {
             }
         } else {
             Box(
-                modifier = Modifier.fillMaxWidth(),
+                modifier = Modifier.fillMaxSize(),
                 contentAlignment = Alignment.Center
             ) {
                 val comicDataContainer: ComicDataContainer =
                     (requestCharacterComicsState as RequestState.Success<*>).data as ComicDataContainer
                 CharacterComicsList(
                     comicList = comicDataContainer.results
+                )
+            }
+        }
+    }
+
+    @Composable
+    fun CharacterComicsList(
+        comicList: List<Comic>
+    ) {
+        LazyRow(horizontalArrangement = Arrangement.spacedBy(10.dp)) {
+            items(comicList) { comic ->
+                CharacterComicItem(
+                    comic = comic
                 )
             }
         }
@@ -165,26 +167,35 @@ class DetailActivity : ComponentActivity() {
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.spacedBy(12.dp)
         ) {
-            /*
             ComicImage(
-                portraitUrl = character
-                    .thumbnail.path
-                    .plus("/portrait_xlarge")
-                    .plus(".")
-                    .plus(character.thumbnail.extension)
+                comicUrl = comic.thumbnail.path.plus(".").plus(comic.thumbnail.extension)
             )
-             */
             Column(
                 modifier = Modifier.fillMaxWidth()
             ) {
+                val comicTitle = comic.title
+
+                val comicSaleDate = comic.dates.find { comicDate ->
+                    comicDate.type == "onsaleDate"
+                }?.date
+
+                val formattedDate = comicSaleDate?.let {
+                    OffsetDateTime.parse(
+                        it,
+                        DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ssZ")
+                    )
+                        .toLocalDateTime()
+                        .format(DateTimeFormatter.ofPattern("dd/MM/yyyy"))
+                } ?: "No disponible"
+
                 Text(
-                    text = comic.title
+                    text = comicTitle
                 )
                 Spacer(
                     modifier = Modifier.padding(2.dp)
                 )
                 Text(
-                    text = "Páginas: ${comic.pageCount}",
+                    text = "Fecha de publicación: $formattedDate",
                     color = Color.Gray
                 )
             }
@@ -193,7 +204,7 @@ class DetailActivity : ComponentActivity() {
 
     @Composable
     fun ComicImage(
-        portraitUrl: String,
+        comicUrl: String,
         size: Dp = 100.dp
     ) {
         Box(
@@ -201,22 +212,9 @@ class DetailActivity : ComponentActivity() {
             contentAlignment = Alignment.Center
         ) {
             AsyncImage(
-                model = portraitUrl,
-                contentDescription = stringResource(R.string.cd_character_portrait)
+                model = comicUrl,
+                contentDescription = stringResource(R.string.cd_comic_image)
             )
-        }
-    }
-
-    @Composable
-    fun CharacterComicsList(
-        comicList: List<Comic>
-    ) {
-        LazyRow(horizontalArrangement = Arrangement.spacedBy(10.dp)) {
-            items(comicList) { comic ->
-                CharacterComicItem(
-                    comic = comic
-                )
-            }
         }
     }
 

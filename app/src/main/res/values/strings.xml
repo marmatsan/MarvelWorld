@@ -10,4 +10,5 @@
     <string name="l_descripci_n">Descripción</string>
     <string name="l_character_description">Character description</string>
     <string name="l_cargando">Cargando</string>
+    <string name="cd_comic_image">Comic Image</string>
 </resources>
