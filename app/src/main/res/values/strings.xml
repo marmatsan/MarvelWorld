@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">MarvelWorld</string>
+    <string name="app_name">Marvel World</string>
     <string name="cd_character_portrait">Character portrait</string>
     <string name="cd_search_icon">Search Icon</string>
     <string name="cd_close_icon">Close Icon</string>

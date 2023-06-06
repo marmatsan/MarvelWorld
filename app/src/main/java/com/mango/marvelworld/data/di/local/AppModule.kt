@@ -5,10 +5,10 @@ import androidx.paging.ExperimentalPagingApi
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.room.Room
-import com.mango.marvelworld.data.local.CharacterDataContainerEntity
+import com.mango.marvelworld.domain.models.characterlist.cache.CharacterDataContainerEntity
 import com.mango.marvelworld.data.local.CharactersDatabase
-import com.mango.marvelworld.data.remote.CharactersRemoteMediator
-import com.mango.marvelworld.domain.Constants
+import com.mango.marvelworld.data.remote.pagination.CharactersRemoteMediator
+import com.mango.marvelworld.domain.utils.Constants
 import com.mango.marvelworld.domain.repository.list.CharactersListDataRepository
 import dagger.Module
 import dagger.Provides
