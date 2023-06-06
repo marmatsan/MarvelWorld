@@ -12,6 +12,9 @@ import com.mango.marvelworld.ui.presentation.characterlist.ListScreen
 import com.mango.marvelworld.ui.presentation.characterlist.ListViewModel
 import com.mango.marvelworld.ui.theme.MarvelWorldTheme
 import dagger.hilt.android.AndroidEntryPoint
+import java.time.Clock
+import java.time.Instant
+import java.time.temporal.ChronoUnit
 import kotlin.math.hypot
 
 @AndroidEntryPoint
@@ -26,11 +29,19 @@ class MainActivity : ComponentActivity() {
             val startRadius = hypot(centerX.toDouble(), centerY.toDouble()).toFloat()
             val endRadius = 0f
 
+            val splashScreenAnimationEndTime =
+                Instant.ofEpochMilli(splashScreenView.iconAnimationStartMillis + splashScreenView.iconAnimationDurationMillis)
+
+            val delay = Instant.now(Clock.systemUTC()).until(
+                splashScreenAnimationEndTime,
+                ChronoUnit.MILLIS
+            )
+
             val circularReveal = ViewAnimationUtils.createCircularReveal(
                 splashScreenView.view, centerX, centerY, startRadius, endRadius
             ).apply {
-                startDelay = 1000L
-                duration = 500L
+                startDelay = if (delay > 0) delay else 0
+                duration = 300L
                 interpolator = AccelerateDecelerateInterpolator()
                 doOnEnd { splashScreenView.remove() }
             }
