@@ -55,11 +55,14 @@ fun ListScreen(
     }
 
     // ViewModel properties
+    val searchedCharactersList by listViewModel.recentSearchesState.collectAsStateWithLifecycle()
     val characterDataContainer = listViewModel.charactersPagingFlow.collectAsLazyPagingItems()
     val cachedDataContainersState by listViewModel.cachedDataContainersState.collectAsStateWithLifecycle()
 
     // Actions when clicked on a character
     val onCharacterCachedItemClick: (Character) -> Unit = { character ->
+        listViewModel.addSearchedCharacter(character)
+        queryText = String.Empty
         val intent = Intent(localContext, DetailActivity::class.java).apply {
             putExtra("characterId", character.id)
         }
@@ -74,7 +77,8 @@ fun ListScreen(
                 active = searchBarActive,
                 onSearchBarActive = onSearchBarActive,
                 cachedDataContainersState = cachedDataContainersState,
-                onCharacterCachedItemClick = onCharacterCachedItemClick
+                onCharacterSearchedClick = onCharacterCachedItemClick,
+                searchedCharactersList = searchedCharactersList
             )
         }
     ) { paddingValues ->

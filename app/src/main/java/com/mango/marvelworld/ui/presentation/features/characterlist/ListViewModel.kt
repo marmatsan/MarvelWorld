@@ -8,6 +8,7 @@ import androidx.paging.map
 import com.mango.marvelworld.domain.models.characterlist.cache.CharacterDataContainerEntity
 import com.mango.marvelworld.data.local.CharactersDatabase
 import com.mango.marvelworld.data.datasource.features.characterlist.remote.mapper.toCharacterDataContainer
+import com.mango.marvelworld.domain.models.characterlist.Character
 import com.mango.marvelworld.domain.models.characterlist.cache.mapper.toCharacterDataContainer
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
@@ -33,10 +34,27 @@ class ListViewModel @Inject constructor(
         }
         .cachedIn(viewModelScope)
 
+    // SearchAppBar searches
+    private val _recentSearchesState: MutableStateFlow<MutableList<Character>> by lazy {
+        MutableStateFlow(mutableListOf())
+    }
+
+    val recentSearchesState: StateFlow<MutableList<Character>>
+        get() = _recentSearchesState
+
+    fun addSearchedCharacter(searchedCharacter: Character) {
+        viewModelScope.launch(Dispatchers.IO) {
+            _recentSearchesState.update { recentSearches ->
+                recentSearches.apply {
+                    add(searchedCharacter)
+                }
+            }
+        }
+    }
+
+    // Cached characters
     private val _cachedDataContainersState: MutableStateFlow<List<CharacterDataContainerEntity>> by lazy {
-        MutableStateFlow(
-            emptyList()
-        )
+        MutableStateFlow(emptyList())
     }
 
     val cachedDataContainersState: StateFlow<List<CharacterDataContainerEntity>>

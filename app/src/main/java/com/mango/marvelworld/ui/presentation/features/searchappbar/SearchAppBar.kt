@@ -24,10 +24,10 @@ import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.zIndex
 import com.mango.marvelworld.R
-import com.mango.marvelworld.domain.models.characterlist.cache.CharacterDataContainerEntity
-import com.mango.marvelworld.domain.utils.Constants.Empty
 import com.mango.marvelworld.domain.models.characterlist.Character
+import com.mango.marvelworld.domain.models.characterlist.cache.CharacterDataContainerEntity
 import com.mango.marvelworld.domain.models.characterlist.cache.mapper.toCharacterDataContainer
+import com.mango.marvelworld.domain.utils.Constants.Empty
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -37,8 +37,10 @@ fun SearchAppBar(
     active: Boolean,
     onSearchBarActive: (Boolean) -> Unit,
     cachedDataContainersState: List<CharacterDataContainerEntity>,
-    onCharacterCachedItemClick: (Character) -> Unit
+    onCharacterSearchedClick: (Character) -> Unit,
+    searchedCharactersList: MutableList<Character>
 ) {
+
     Box(
         modifier = Modifier
             .semantics { isContainer = true }
@@ -89,28 +91,44 @@ fun SearchAppBar(
                 }
             },
         ) {
-
-            Divider()
-            LazyRow(
-                modifier = Modifier.fillMaxSize(),
-                contentPadding = PaddingValues(16.dp)
-            ) {
-                items(cachedDataContainersState) { characterDataContainerEntity ->
-                    characterDataContainerEntity
-                        .toCharacterDataContainer()
-                        .results
-                        .filter { character ->
-                            queryText.isNotEmpty() && character.name.contains(
-                                queryText,
-                                ignoreCase = true
-                            )
-                        }
-                        .forEach { character ->
-                            CharacterSearchAppBarItem(
-                                character = character,
-                                onCharacterCachedItemClick = onCharacterCachedItemClick
-                            )
-                        }
+            if (searchedCharactersList.isEmpty() && (queryText.isEmpty() || queryText.isBlank())) {
+                Box(
+                    modifier = Modifier.fillMaxSize(),
+                    contentAlignment = Alignment.Center
+                ) {
+                    Text(
+                        text = "No hay ninguna búsqueda reciente"
+                    )
+                }
+            } else {
+                searchedCharactersList.forEach { character ->
+                    RecentSearchedCharacter(
+                        character = character,
+                        onRecentSearchedCharacterClicked = onCharacterSearchedClick
+                    )
+                }
+                Divider()
+                LazyRow(
+                    modifier = Modifier.fillMaxSize(),
+                    contentPadding = PaddingValues(16.dp)
+                ) {
+                    items(cachedDataContainersState) { characterDataContainerEntity ->
+                        characterDataContainerEntity
+                            .toCharacterDataContainer()
+                            .results
+                            .filter { character ->
+                                queryText.isNotEmpty() && character.name.contains(
+                                    queryText,
+                                    ignoreCase = true
+                                )
+                            }
+                            .forEach { character ->
+                                CharacterSearchAppBarItem(
+                                    character = character,
+                                    onCharacterCachedItemClick = onCharacterSearchedClick
+                                )
+                            }
+                    }
                 }
             }
         }
