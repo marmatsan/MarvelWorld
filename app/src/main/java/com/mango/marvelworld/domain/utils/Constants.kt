@@ -7,6 +7,7 @@ object Constants {
 
     object Literals {
         const val error = "Error: "
+        const val internetUnavailable = "Internet no disponible"
         const val noRecentSearches = "No hay ninguna búsqueda reciente"
         const val dot = "."
     }

@@ -5,8 +5,12 @@ import android.view.ViewAnimationUtils
 import android.view.animation.AccelerateDecelerateInterpolator
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.compose.runtime.getValue
 import androidx.core.animation.doOnEnd
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import com.mango.marvelworld.domain.utils.connectivityobserver.ConnectivityObserver
+import com.mango.marvelworld.domain.utils.connectivityobserver.ConnectivityObserverImpl
 import com.mango.marvelworld.ui.presentation.features.characterlist.ListScreen
 import com.mango.marvelworld.ui.theme.MarvelWorldTheme
 import dagger.hilt.android.AndroidEntryPoint
@@ -17,8 +21,13 @@ import kotlin.math.hypot
 
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
+
+    private lateinit var connectivityObserver: ConnectivityObserver
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        connectivityObserver = ConnectivityObserverImpl(applicationContext)
 
         installSplashScreen().setOnExitAnimationListener { splashScreenView ->
 
@@ -50,7 +59,13 @@ class MainActivity : ComponentActivity() {
 
         setContent {
             MarvelWorldTheme {
-                ListScreen()
+                val status by connectivityObserver.observe().collectAsStateWithLifecycle(
+                    initialValue = ConnectivityObserver.ConnectiviyStatus.UNAVAILABLE
+                )
+
+                ListScreen(
+                    connectionStatus = status
+                )
             }
         }
     }

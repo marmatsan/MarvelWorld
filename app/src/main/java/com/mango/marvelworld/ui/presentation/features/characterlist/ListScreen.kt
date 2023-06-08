@@ -20,6 +20,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
@@ -28,15 +29,18 @@ import androidx.paging.compose.LazyPagingItems
 import androidx.paging.compose.collectAsLazyPagingItems
 import androidx.paging.compose.itemContentType
 import androidx.paging.compose.itemKey
+import com.mango.marvelworld.R
 import com.mango.marvelworld.domain.utils.Constants.Empty
 import com.mango.marvelworld.domain.models.characterlist.Character
 import com.mango.marvelworld.domain.models.characterlist.CharacterDataContainer
 import com.mango.marvelworld.domain.utils.Constants
+import com.mango.marvelworld.domain.utils.connectivityobserver.ConnectivityObserver
 import com.mango.marvelworld.ui.activities.DetailActivity
 import com.mango.marvelworld.ui.presentation.features.searchappbar.SearchAppBar
 
 @Composable
 fun ListScreen(
+    connectionStatus: ConnectivityObserver.ConnectiviyStatus,
     listViewModel: ListViewModel = hiltViewModel()
 ) {
     val localContext = LocalContext.current
@@ -62,12 +66,20 @@ fun ListScreen(
 
     // Actions when clicked on a character
     val onCharacterCachedItemClick: (Character) -> Unit = { character ->
-        listViewModel.addSearchedCharacter(character)
-        queryText = String.Empty
-        val intent = Intent(localContext, DetailActivity::class.java).apply {
-            putExtra(Constants.Properties.characterId, character.id)
+        if (connectionStatus == ConnectivityObserver.ConnectiviyStatus.AVAILABLE) {
+            listViewModel.addSearchedCharacter(character)
+            queryText = String.Empty
+            val intent = Intent(localContext, DetailActivity::class.java).apply {
+                putExtra(Constants.Properties.characterId, character.id)
+            }
+            localContext.startActivity(intent)
+        } else {
+            Toast.makeText(
+                localContext,
+                Constants.Literals.internetUnavailable,
+                Toast.LENGTH_SHORT
+            ).show()
         }
-        localContext.startActivity(intent)
     }
 
     Scaffold(

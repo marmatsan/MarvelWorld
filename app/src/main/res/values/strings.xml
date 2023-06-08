@@ -16,4 +16,5 @@
     <string name="l_comics_en_los_que_aparece">Comics en los que aparece</string>
     <string name="l_no_disponible">No disponible</string>
     <string name="l_fecha_de_publicaci_n_s">Fecha de publicación: %s</string>
+    <string name="l_internet_no_disponible">Internet no disponible</string>
 </resources>
