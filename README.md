@@ -18,6 +18,12 @@ The technologies used have been:
 -   Cache with ROOM
 -   Version control with Git Flow using the Git extension (git flow commands)
 
+# Preview
+
+<p align="center">
+<img width="200" src="https://user-images.githubusercontent.com/31454029/244370048-0693022c-00fb-4d98-999e-dad6004295f1.jpg"> <img width="200" src="https://user-images.githubusercontent.com/31454029/244370057-6b2c4852-06f2-4051-89aa-2fcbb0a6dea8.jpg"> <img width="200" src="https://user-images.githubusercontent.com/31454029/244370055-3dd50d32-15d2-4379-ac47-21708363fc3c.jpg"> <img width="200" src="https://user-images.githubusercontent.com/31454029/244370071-effb0df9-98ab-481f-8d77-5b07fbfcdef8.jpg">
+</p>
+
 # Design
 
 -   Material 3 components have been used
