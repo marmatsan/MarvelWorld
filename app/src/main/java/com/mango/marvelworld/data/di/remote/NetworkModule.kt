@@ -2,9 +2,13 @@ package com.mango.marvelworld.data.di.remote
 
 import com.mango.marvelworld.BuildConfig
 import com.mango.marvelworld.data.remote.MarvelApi
+import com.mango.marvelworld.data.repository.detail.CharacterDetailDataRepositoryImpl
 import com.mango.marvelworld.data.repository.list.CharactersListDataRepositoryImpl
+import com.mango.marvelworld.data.source.interfaces.CharacterDetailDataSource
 import com.mango.marvelworld.data.source.interfaces.CharactersListDataSource
+import com.mango.marvelworld.data.source.remote.RemoteCharacterDetailDataSource
 import com.mango.marvelworld.data.source.remote.RemoteCharactersListDataSource
+import com.mango.marvelworld.domain.repository.detail.CharacterDetailDataRepository
 import com.mango.marvelworld.domain.repository.list.CharactersListDataRepository
 import dagger.Module
 import dagger.Provides
@@ -33,15 +37,26 @@ object NetworkModule {
         return retrofit.create(MarvelApi::class.java)
     }
 
-    // Dependencies to fetch data for CharactersList screen
+    // Dependencies to fetch data for the list screen
     @Provides
-    fun provideCharactersListDataStore(marvelApi: MarvelApi): CharactersListDataSource {
+    fun provideCharactersListDataSource(marvelApi: MarvelApi): CharactersListDataSource {
         return RemoteCharactersListDataSource(marvelApi)
     }
 
     @Provides
-    fun provideCharactersListRepository(dataStore: CharactersListDataSource): CharactersListDataRepository {
-        return CharactersListDataRepositoryImpl(dataStore)
+    fun provideCharactersListRepository(dataSource: CharactersListDataSource): CharactersListDataRepository {
+        return CharactersListDataRepositoryImpl(dataSource)
+    }
+
+    // Dependencies to fetch data for the detail screen
+    @Provides
+    fun provideCharacterComicsDataSource(marvelApi: MarvelApi) : CharacterDetailDataSource {
+        return RemoteCharacterDetailDataSource(marvelApi)
+    }
+
+    @Provides
+    fun provideCharacterComicsRepository(dataSource : CharacterDetailDataSource) : CharacterDetailDataRepository {
+        return CharacterDetailDataRepositoryImpl(dataSource)
     }
 
 }

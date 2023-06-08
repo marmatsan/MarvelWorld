@@ -4,7 +4,8 @@ import androidx.paging.PagingSource
 import androidx.room.Dao
 import androidx.room.Query
 import androidx.room.Upsert
-import com.mango.marvelworld.domain.Constants
+import com.mango.marvelworld.domain.utils.Constants
+import com.mango.marvelworld.domain.models.characterlist.cache.CharacterDataContainerEntity
 
 @Dao
 interface CharactersDao {

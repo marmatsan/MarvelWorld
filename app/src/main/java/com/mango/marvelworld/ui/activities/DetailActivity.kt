@@ -42,7 +42,7 @@ import com.mango.marvelworld.domain.models.characterdetail.Image
 import com.mango.marvelworld.domain.models.characterdetail.SeriesSummary
 import com.mango.marvelworld.domain.models.characterdetail.StoryList
 import com.mango.marvelworld.domain.models.characterlist.CharacterDataContainer
-import com.mango.marvelworld.ui.presentation.characterdetail.DetailViewModel
+import com.mango.marvelworld.ui.presentation.features.characterdetail.DetailViewModel
 import com.mango.marvelworld.ui.util.RequestState
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.Dispatchers

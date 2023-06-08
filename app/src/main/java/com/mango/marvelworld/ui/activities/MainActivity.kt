@@ -7,9 +7,7 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.core.animation.doOnEnd
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
-import androidx.hilt.navigation.compose.hiltViewModel
-import com.mango.marvelworld.ui.presentation.characterlist.ListScreen
-import com.mango.marvelworld.ui.presentation.characterlist.ListViewModel
+import com.mango.marvelworld.ui.presentation.features.characterlist.ListScreen
 import com.mango.marvelworld.ui.theme.MarvelWorldTheme
 import dagger.hilt.android.AndroidEntryPoint
 import java.time.Clock
@@ -51,11 +49,8 @@ class MainActivity : ComponentActivity() {
         }
 
         setContent {
-            val listViewModel = hiltViewModel<ListViewModel>()
             MarvelWorldTheme {
-                ListScreen(
-                    listViewModel = listViewModel
-                )
+                ListScreen()
             }
         }
     }

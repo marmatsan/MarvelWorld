@@ -2,6 +2,7 @@ package com.mango.marvelworld.data.local
 
 import androidx.room.Database
 import androidx.room.RoomDatabase
+import com.mango.marvelworld.domain.models.characterlist.cache.CharacterDataContainerEntity
 
 @Database(
     entities = [CharacterDataContainerEntity::class],
