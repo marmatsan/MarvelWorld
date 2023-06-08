@@ -28,15 +28,16 @@ The technologies used have been:
 # Features
 
 -   Splash Screen with an AVD, following Google's recommended practice
--  Non-blocking API calls
+-   Non-blocking API calls
 -   Search for cached characters through a dedicated view, with a search history
 -   Characters are loaded in batches of 20 as you scroll down
 
 # How to compile the application:
 
-You need to have a file named local.properties in the same you have to add the following properties (below the sdk location):
+You need to have a file named local.properties in the same route as the /app folder, and add the following properties (below the sdk location):
 
-publicKey=f283ff44e78510b2313f532b76ff8eb6 
+publicKey=f283ff44e78510b2313f532b76ff8eb6
+
 privateKey=56d84460b05555369182257365dc23429e51dd34
 
 # Proposals for improvement and known issues
