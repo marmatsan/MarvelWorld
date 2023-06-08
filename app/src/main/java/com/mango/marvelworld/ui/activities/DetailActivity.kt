@@ -1,6 +1,7 @@
 package com.mango.marvelworld.ui.activities
 
 import android.os.Bundle
+import android.view.View
 import androidx.activity.ComponentActivity
 import androidx.activity.viewModels
 import androidx.compose.foundation.layout.Arrangement
@@ -22,9 +23,13 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.lifecycleScope
@@ -42,6 +47,7 @@ import com.mango.marvelworld.domain.models.characterdetail.Image
 import com.mango.marvelworld.domain.models.characterdetail.SeriesSummary
 import com.mango.marvelworld.domain.models.characterdetail.StoryList
 import com.mango.marvelworld.domain.models.characterlist.CharacterDataContainer
+import com.mango.marvelworld.domain.utils.Constants
 import com.mango.marvelworld.ui.presentation.features.characterdetail.DetailViewModel
 import com.mango.marvelworld.ui.util.RequestState
 import dagger.hilt.android.AndroidEntryPoint
@@ -67,11 +73,22 @@ class DetailActivity : ComponentActivity() {
         setContentView(binding.root)
 
         // Clicked character ID
-        val characterId = intent.extras?.getLong("characterId")!!
+        val characterId = intent.extras?.getLong(Constants.Properties.characterId)!!
 
         // Fetch character data (details and comics)
         characterDetailViewModel.fetchCharacterById(characterId = characterId)
         characterDetailViewModel.fetchCharacterComics(characterId = characterId)
+
+        binding.viewComposeLoading.setContent {
+            Box(
+                modifier = Modifier.fillMaxSize(),
+                contentAlignment = Alignment.Center
+            ) {
+                CircularProgressIndicator(
+                    modifier = Modifier.size(50.dp)
+                )
+            }
+        }
 
         binding.viewCompose.setContent {
             val requestCharacterComicsState by characterDetailViewModel.requestCharacterComicsState.collectAsStateWithLifecycle()
@@ -85,8 +102,10 @@ class DetailActivity : ComponentActivity() {
                 characterDetailViewModel.requestCharacterDetailsState.collectLatest { requestState ->
                     withContext(Dispatchers.Main) {
                         if (requestState is RequestState.Loading) {
-                            binding.txtCharacterName.text = getString(R.string.l_cargando)
+                            binding.viewComposeLoading.visibility = View.VISIBLE
                         } else {
+                            binding.viewComposeLoading.visibility = View.GONE
+
                             val characterDataContainer: CharacterDataContainer =
                                 (requestState as RequestState.Success<*>).data as CharacterDataContainer
                             val character = characterDataContainer.results[0]
@@ -95,8 +114,8 @@ class DetailActivity : ComponentActivity() {
                             binding.imgCharacterPortrait.load(
                                 data = character
                                     .thumbnail.path
-                                    .plus("/portrait_xlarge")
-                                    .plus(".")
+                                    .plus(Constants.Properties.portraitResolution)
+                                    .plus(Constants.Literals.dot)
                                     .plus(character.thumbnail.extension)
                             )
 
@@ -105,7 +124,13 @@ class DetailActivity : ComponentActivity() {
 
                             // Character Description
                             binding.txtCharacterDescription.text =
-                                character.description.ifEmpty { "Descripción no disponible" }
+                                character.description.ifEmpty { getString(R.string.l_descripci_n_no_disponible) }
+
+                            binding.imgCharacterPortrait.visibility = View.VISIBLE
+                            binding.txtCharacterName.visibility = View.VISIBLE
+                            binding.txtOverview.visibility = View.VISIBLE
+                            binding.txtCharacterDescription.visibility = View.VISIBLE
+                            binding.viewCompose.visibility = View.VISIBLE
                         }
                     }
                 }
@@ -133,9 +158,18 @@ class DetailActivity : ComponentActivity() {
             ) {
                 val comicDataContainer: ComicDataContainer =
                     (requestCharacterComicsState as RequestState.Success<*>).data as ComicDataContainer
-                CharacterComicsList(
-                    comicList = comicDataContainer.results
-                )
+                Column {
+                    Text(
+                        text = stringResource(R.string.l_comics_en_los_que_aparece),
+                        style = TextStyle(textDecoration = TextDecoration.Underline),
+                        fontSize = 20.sp,
+                        fontWeight = FontWeight.Bold,
+                        color = Color(0xFFb8b8b8)
+                    )
+                    CharacterComicsList(
+                        comicList = comicDataContainer.results
+                    )
+                }
             }
         }
     }
@@ -168,7 +202,9 @@ class DetailActivity : ComponentActivity() {
             horizontalArrangement = Arrangement.spacedBy(12.dp)
         ) {
             ComicImage(
-                comicUrl = comic.thumbnail.path.plus(".").plus(comic.thumbnail.extension)
+                comicUrl = comic.thumbnail.path
+                    .plus(Constants.Literals.dot)
+                    .plus(comic.thumbnail.extension)
             )
             Column(
                 modifier = Modifier.fillMaxWidth()
@@ -176,27 +212,28 @@ class DetailActivity : ComponentActivity() {
                 val comicTitle = comic.title
 
                 val comicSaleDate = comic.dates.find { comicDate ->
-                    comicDate.type == "onsaleDate"
+                    comicDate.type == Constants.Properties.comicDateType
                 }?.date
 
                 val formattedDate = comicSaleDate?.let {
                     OffsetDateTime.parse(
                         it,
-                        DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ssZ")
+                        DateTimeFormatter.ofPattern(Constants.Properties.remoteDateTimeFormat)
                     )
                         .toLocalDateTime()
-                        .format(DateTimeFormatter.ofPattern("dd/MM/yyyy"))
-                } ?: "No disponible"
+                        .format(DateTimeFormatter.ofPattern(Constants.Properties.localDateTimeFormat))
+                } ?: stringResource(R.string.l_no_disponible)
 
                 Text(
-                    text = comicTitle
+                    text = comicTitle,
+                    color = Color(0xFFb8b8b8)
                 )
                 Spacer(
                     modifier = Modifier.padding(2.dp)
                 )
                 Text(
-                    text = "Fecha de publicación: $formattedDate",
-                    color = Color.Gray
+                    text = stringResource(R.string.l_fecha_de_publicaci_n_s, formattedDate),
+                    color = Color(0xFFb8b8b8)
                 )
             }
         }

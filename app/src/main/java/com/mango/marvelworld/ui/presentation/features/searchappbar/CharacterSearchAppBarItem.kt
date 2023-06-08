@@ -33,6 +33,7 @@ import com.mango.marvelworld.domain.models.characterlist.Stories
 import com.mango.marvelworld.domain.models.characterlist.StorySummary
 import com.mango.marvelworld.domain.models.characterlist.Thumbnail
 import com.mango.marvelworld.domain.models.characterlist.Url
+import com.mango.marvelworld.domain.utils.Constants
 
 @Composable
 fun CharacterSearchAppBarItem(
@@ -55,10 +56,10 @@ fun CharacterSearchAppBarItem(
                 .clip(CircleShape),
             model = character
                 .thumbnail.path
-                .plus("/portrait_xlarge")
-                .plus(".")
+                .plus(Constants.Properties.portraitResolution)
+                .plus(Constants.Literals.dot)
                 .plus(character.thumbnail.extension),
-            contentDescription = "Character Image"
+            contentDescription = stringResource(R.string.cd_character_image)
         )
         Text(
             text = character.name

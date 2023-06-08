@@ -27,6 +27,7 @@ import com.mango.marvelworld.R
 import com.mango.marvelworld.domain.models.characterlist.Character
 import com.mango.marvelworld.domain.models.characterlist.cache.CharacterDataContainerEntity
 import com.mango.marvelworld.domain.models.characterlist.cache.mapper.toCharacterDataContainer
+import com.mango.marvelworld.domain.utils.Constants
 import com.mango.marvelworld.domain.utils.Constants.Empty
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -97,7 +98,7 @@ fun SearchAppBar(
                     contentAlignment = Alignment.Center
                 ) {
                     Text(
-                        text = "No hay ninguna búsqueda reciente"
+                        text = Constants.Literals.noRecentSearches
                     )
                 }
             } else {

@@ -31,6 +31,7 @@ import androidx.paging.compose.itemKey
 import com.mango.marvelworld.domain.utils.Constants.Empty
 import com.mango.marvelworld.domain.models.characterlist.Character
 import com.mango.marvelworld.domain.models.characterlist.CharacterDataContainer
+import com.mango.marvelworld.domain.utils.Constants
 import com.mango.marvelworld.ui.activities.DetailActivity
 import com.mango.marvelworld.ui.presentation.features.searchappbar.SearchAppBar
 
@@ -64,7 +65,7 @@ fun ListScreen(
         listViewModel.addSearchedCharacter(character)
         queryText = String.Empty
         val intent = Intent(localContext, DetailActivity::class.java).apply {
-            putExtra("characterId", character.id)
+            putExtra(Constants.Properties.characterId, character.id)
         }
         localContext.startActivity(intent)
     }
@@ -103,7 +104,7 @@ fun CharactersContainer(
         if (refresh is LoadState.Error) {
             Toast.makeText(
                 context,
-                "Error: " + refresh.error.message,
+                Constants.Literals.error + refresh.error.message,
                 Toast.LENGTH_SHORT
             ).show()
         }

@@ -11,4 +11,9 @@
     <string name="l_character_description">Character description</string>
     <string name="l_cargando">Cargando</string>
     <string name="cd_comic_image">Comic Image</string>
+    <string name="cd_character_image">Character Image</string>
+    <string name="l_descripci_n_no_disponible">Descripción no disponible</string>
+    <string name="l_comics_en_los_que_aparece">Comics en los que aparece</string>
+    <string name="l_no_disponible">No disponible</string>
+    <string name="l_fecha_de_publicaci_n_s">Fecha de publicación: %s</string>
 </resources>
