@@ -138,12 +138,12 @@ dependencies {
     implementation("com.squareup.retrofit2:retrofit:$retrofitVersion")              // Retrofit
     implementation("com.squareup.retrofit2:converter-gson:$retrofitVersion")        // Retrofit
 
-    implementation("androidx.navigation:navigation-compose:2.5.3")                  // Navigation
+    implementation("androidx.navigation:navigation-compose:2.6.0")                  // Navigation
     implementation("androidx.lifecycle:lifecycle-runtime-compose:2.6.1")            // Lifecycle Compose
     implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.6.1")          // ViewModel Compose
 
     implementation("androidx.paging:paging-common-ktx:3.1.1")                       // Paging 3
-    implementation("androidx.paging:paging-compose:1.0.0-alpha20")                  // Paging 3
+    implementation("androidx.paging:paging-compose:3.2.0-beta01")                   // Paging 3
 
     implementation("androidx.compose.material:material-icons-extended")             // Extended Material Icons
 
