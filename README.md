@@ -34,7 +34,7 @@ The technologies used have been:
 
 # How to compile the application:
 
-In your local.properties file you have to add the following properties (below the sdk location):
+You need to have a file named local.properties in the same you have to add the following properties (below the sdk location):
 
 publicKey=f283ff44e78510b2313f532b76ff8eb6 
 privateKey=56d84460b05555369182257365dc23429e51dd34
