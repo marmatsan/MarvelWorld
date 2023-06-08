@@ -1,6 +1,5 @@
 package com.mango.marvelworld.domain.repository.list
 
-import com.mango.marvelworld.domain.models.characterdetail.ComicDataContainer
 import com.mango.marvelworld.domain.models.characterlist.CharacterDataContainer
 
 interface CharactersListDataRepository {
