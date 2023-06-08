@@ -17,4 +17,7 @@
     <string name="l_no_disponible">No disponible</string>
     <string name="l_fecha_de_publicaci_n_s">Fecha de publicación: %s</string>
     <string name="l_internet_no_disponible">Internet no disponible</string>
+    <string name="available_comics">Aparece en %1$d %2$s</string>
+    <string name="comic">comic</string>
+    <string name="comics">comics</string>
 </resources>

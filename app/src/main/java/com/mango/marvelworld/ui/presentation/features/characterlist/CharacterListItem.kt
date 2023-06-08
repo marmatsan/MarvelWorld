@@ -32,6 +32,7 @@ import com.mango.marvelworld.domain.models.characterlist.Stories
 import com.mango.marvelworld.domain.models.characterlist.StorySummary
 import com.mango.marvelworld.domain.models.characterlist.Thumbnail
 import com.mango.marvelworld.domain.models.characterlist.Url
+import com.mango.marvelworld.domain.utils.Constants
 
 @Composable
 fun CharacterListItem(
@@ -54,8 +55,8 @@ fun CharacterListItem(
         CharacterImage(
             portraitUrl = character
                 .thumbnail.path
-                .plus("/portrait_xlarge")
-                .plus(".")
+                .plus(Constants.Properties.portraitResolution)
+                .plus(Constants.Literals.dot)
                 .plus(character.thumbnail.extension)
         )
         Column(
@@ -68,7 +69,14 @@ fun CharacterListItem(
                 modifier = Modifier.padding(2.dp)
             )
             Text(
-                text = "Aparece en ${character.comics.available} comics",
+                text = stringResource(
+                    R.string.available_comics,
+                    character.comics.available,
+                    if (character.comics.available == 1L) stringResource(
+                        id = R.string.comic
+                    ) else
+                        stringResource(id = R.string.comics)
+                ),
                 color = Color.Gray
             )
         }
