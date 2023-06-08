@@ -36,8 +36,8 @@ The technologies used have been:
 
 In your local.properties file you have to add the following properties (below the sdk location):
 
-#Marvel API Keys
-publicKey=f283ff44e78510b2313f532b76ff8eb6 privateKey=56d84460b05555369182257365dc23429e51dd34
+publicKey=f283ff44e78510b2313f532b76ff8eb6 
+privateKey=56d84460b05555369182257365dc23429e51dd34
 
 # Proposals for improvement and known issues
 
