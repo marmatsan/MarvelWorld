@@ -32,7 +32,7 @@ The technologies used have been:
 -   Search for cached characters through a dedicated view, with a search history
 -   Characters are loaded in batches of 20 as you scroll down
 
-How to compile the application:
+# How to compile the application:
 
 In your local.properties file you have to add the following properties (below the sdk location):
 
